@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analyst Job Market</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .section p {
+            text-align: justify;
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            color: white;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Data Analyst Job Market</h1>
+    </header>
+
+    <div class="section">
+        <h2>1. Introduction</h2>
+        <p>
+            📊 Dive into the data job market! Focusing on data analyst roles, this project explores 💰 top-paying jobs, 🔥 in-demand skills, and 📈 where high demand meets high salary in data analytics.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2> Background</h2>
+        <p>
+            Driven by a quest to navigate the data analyst job market more effectively, this project was born from a desire to pinpoint top-paid and in-demand skills, streamlining others' work to find optimal jobs.
+        </p>
+        <p>
+            The questions I wanted to answer through my SQL queries were:
+        </p>
+        <ul>
+            <li>What are the top-paying data analyst jobs?</li>
+            <li>What skills are required for these top-paying jobs?</li>
+            <li>What skills are most in demand for data analysts?</li>
+            <li>Which skills are associated with higher salaries?</li>
+            <li>What are the most optimal skills to learn?</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Tools I Used</h2>
+        <p>
+            For my deep dive into the data analyst job market, I harnessed the power of several key tools:
+        </p>
+        <ul>
+            <li><strong>SQL:</strong> The backbone of my analysis, allowing me to query the database and unearth critical insights.</li>
+            <li><strong>PostgreSQL:</strong> The chosen database management system, ideal for handling the job posting data.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2> Approach to Queries</h2>
+        <p>Each query for this project aimed at investigating specific aspects of the data analyst job market. Here’s how I approached each question:</p>
+    </div>
+
+    <div class="section">
+        <h2>1. Insights Based on Data Analyst Job Postings in California</h2>
+    
+            
+         <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Top-Paying Remote Data Analyst Jobs</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            margin: 20px;
+                            padding: 0;
+                        }
+                        .section {
+                            margin-bottom: 30px;
+                        }
+                        h1, h3 {
+                            color: #333;
+                        }
+                        pre {
+                            background-color: #f4f4f4;
+                            border: 1px solid #ccc;
+                            padding: 10px;
+                            overflow-x: auto;
+                        }
+                        p {
+                            margin-bottom: 15px;
+                        }
+                    </style>
+                </head>
+                <body>
+                
+                <div class="section">
+                    <h1>Top-Paying Remote Data Analyst Jobs</h1>
+                    
+                    <p>Below is a SQL query to find the top 10 highest-paying remote Data Analyst jobs in California:</p>
+                    
+                    <pre>
+                    /*
+                    Question: What are the top-paying data analyst jobs?
+                    - Identify the top 10 highest-paying Data Analyst roles that are available remotely
+                    - Focuses on job postings with specified salaries (remove nulls)
+                    - BONUS: Include company names of top 10 roles
+                    - Why? Highlight the top-paying opportunities for Data Analysts, offering insights into employment options and location flexibility.
+                    */
+                    
+                    SELECT    
+                        job_id,
+                        job_title,
+                        job_location,
+                        job_schedule_type,
+                        salary_year_avg,
+                        job_posted_date,
+                        name AS company_name
+                    FROM
+                        job_postings_fact
+                    LEFT JOIN
+                        company_dim ON job_postings_fact.company_id = company_dim.company_id
+                    WHERE
+                        job_title_short = 'Data Analyst' AND 
+                        job_location = 'California' AND 
+                        salary_year_avg IS NOT NULL
+                    ORDER BY
+                        salary_year_avg DESC
+                    LIMIT 10;
+                    </pre>
+                </div>
+                
+                <div class="section">
+                    <h3>Salary Range</h3>
+                    <p>The average salaries for data analyst roles in California vary significantly, ranging from $95,000 to $202,000 per year. This wide range reflects the diversity in job roles, seniority levels, and industries (e.g., healthcare, retail, technology) that data analysts are employed in.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Industry Focus</h3>
+                    <p>Industries such as healthcare (Centene Corporation), retail (Walmart Global Tech, Robert Half), and consulting (1872 Consulting, Fortuna BMC) prominently feature data analyst roles. This indicates strong demand for data-driven insights across different sectors.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Job Titles and Seniority</h3>
+                    <p>Job titles range from entry-level (Data Analyst III) to senior positions (Senior Data Analyst, Data Analyst IV). The presence of senior roles suggests opportunities for career progression and specialization within the field of data analysis.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Job Posting Trends</h3>
+                    <p>Job postings are spread throughout the year, with spikes in activity observed in January, February, July, and November. This could be linked to seasonal hiring trends, fiscal year planning, or project timelines in respective industries.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Schedule Flexibility</h3>
+                    <p>Some roles offer both full-time and part-time schedules (e.g., Senior Data Analyst at Walmart Global Tech), catering to different preferences and needs of professionals in the workforce.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Company Diversity</h3>
+                    <p>The list includes a mix of large corporations (Walmart Global Tech, Centene Corporation) and smaller firms (1872 Consulting, Fortuna BMC), showcasing opportunities in both established and emerging companies.</p>
+                </div>
+                
+                <div class="section">
+                    <h3>Specializations</h3>
+                    <p>Specific job titles such as Financial Data Analyst and Healthcare Analytics highlight specialized roles within data analysis, indicating a need for domain expertise alongside general analytical skills.</p>
+                </div>
+
+                <img src="/Users/wiltonngo/Downloads/wiltonngo.github.io-main/images/top_10_highest_paying_jobs_adjusted.jpg" width="600" height="500">
+
+        <h2>2. Insights on the Most Demanded Skills in California for the Top 10 Highest Paying Data Analyst Jobs in 2024</h2>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Top-Paying Data Analyst Jobs and Required Skills</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    padding: 0;
+                }
+                pre {
+                    background-color: #f4f4f4;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    overflow-x: auto;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <h1>Top-Paying Data Analyst Jobs and Required Skills</h1>
+        
+        <p>Below is a SQL query to find the top 10 highest-paying Data Analyst jobs in California along with the required skills:</p>
+        
+        <pre>
+        /*
+        Question: What skills are required for the top-paying data analyst jobs?
+        - Use the top 10 highest-paying Data Analyst jobs from first query
+        - Add the specific skills required for these roles
+        - Why? It provides a detailed look at which high-paying jobs demand certain skills, 
+          helping job seekers understand which skills to develop that align with top salaries
+        */
+        
+        WITH top_paying_jobs AS (
+            SELECT    
+                job_id,
+                job_title,
+                salary_year_avg,
+                name AS company_name
+            FROM
+                job_postings_fact
+            LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
+            WHERE
+                job_title_short = 'Data Analyst' AND 
+                job_location = 'California' AND 
+                salary_year_avg IS NOT NULL
+            ORDER BY
+                salary_year_avg DESC
+            LIMIT 10
+        )
+        
+        SELECT 
+            top_paying_jobs.*,
+            skills_dim.skill_name AS required_skill
+        FROM 
+            top_paying_jobs
+        INNER JOIN 
+            skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
+        INNER JOIN 
+            skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+        ORDER BY
+            salary_year_avg DESC;
+        </pre>
+        <h3>Versatility in Programming</h3>
+        <p>Proficiency in multiple programming languages (SQL, Python, R, Scala) is highly sought after, indicating a demand for versatile data analysts who can handle diverse data tasks.</p>
+        <h3>Data Visualization</h3>
+        <p>Tools like Tableau and Power BI are frequently listed, highlighting the importance of being able to visualize and communicate data insights effectively.</p>
+        <h3>Big Data Processing</h3>
+        <p>The inclusion of Spark and Scala points to a trend towards big data technologies and the ability to process and analyze large datasets efficiently.</p>
+    </div>
+
+    <div class="section">
+
+        <img src="/Users/wiltonngo/Downloads/wiltonngo.github.io-main/images/demanded_skills_california_blue.jpeg" width="600" height="500">
+        <h2>3. Insights on In-Demand Skills for Data Analysts</h2>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Most In-Demand Skills for Data Analysts</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    padding: 0;
+                }
+                pre {
+                    background-color: #f4f4f4;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    overflow-x: auto;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <h1>Most In-Demand Skills for Data Analysts</h1>
+        
+        <p>Below is a SQL query to find the top 5 most in-demand skills for Data Analysts:</p>
+        
+        <pre>
+        /*
+        Question: What are the most in-demand skills for data analysts?
+        - Join job postings to inner join table similar to query 2
+        - Identify the top 5 in-demand skills for a data analyst.
+        - Focus on all job postings.
+        - Why? Retrieves the top 5 skills with the highest demand in the job market, 
+          providing insights into the most valuable skills for job seekers.
+        */
+        
+        SELECT 
+            skills_dim.skill_name AS skill_name,
+            COUNT(skills_job_dim.job_id) AS demand_count
+        FROM job_postings_fact
+        INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+        INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+        WHERE
+            job_title_short = 'Data Analyst' 
+            AND salary_year_avg IS NOT NULL
+        GROUP BY
+            skills_dim.skill_name
+        ORDER BY
+            demand_count DESC
+        LIMIT 5;
+        </pre>
+        <p>Based on the data provided, here are some insights into the most in-demand skills for Data Analysts:</p>
+        <h3>SQL and Excel</h3>
+        <p>These foundational tools are indispensable for data analysts, reflecting their widespread use for data management and basic analysis.</p>
+        <h3>Python</h3>
+        <p>Its demand underscores the need for versatile programming skills and the ability to handle more complex data tasks.</p>
+        <h3>Tableau</h3>
+        <p>The emphasis on visualization tools like Tableau indicates the importance of translating data into actionable insights.</p>
+        <h3>R</h3>
+        <p>The demand for R points to a niche requirement for advanced statistical analysis and specialized data science tasks.</p>
+    </div>
+
+    <div class="section">
+
+        <img src="/Users/wiltonngo/Downloads/wiltonngo.github.io-main/images/in_demand_skills_california_blue.jpeg" width="600" height="500">
+        <h2>4. Insights on Skills Based on Salary for Data Analysts</h2>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Top Skills Based on Salary for Data Analysts</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    padding: 0;
+                }
+                pre {
+                    background-color: #f4f4f4;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    overflow-x: auto;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <h1>Top Skills Based on Salary for Data Analysts</h1>
+        
+        <p>Below is a SQL query to find the top skills based on average salary for Data Analyst positions:</p>
+        
+        <pre>
+        /*
+        Answer: What are the top skills based on salary?
+        - Look at the average salary associated with each skill for Data Analyst positions
+        - Focuses on roles with specified salaries, regardless of location
+        - Why? It reveals how different skills impact salary levels for Data Analysts and 
+          helps identify the most financially rewarding skills to acquire or improve
+        */
+        
+        SELECT 
+            skills_dim.skill_name AS skill_name,
+            ROUND(AVG(job_postings_fact.salary_year_avg), 0) AS avg_salary
+        FROM job_postings_fact
+        INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+        INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+        WHERE
+            job_title_short = 'Data Analyst'
+            AND salary_year_avg IS NOT NULL
+        GROUP BY
+            skills_dim.skill_name
+        ORDER BY
+            avg_salary DESC
+        LIMIT 10;
+        </pre>
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Top 10 Skills Based on Salary</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    padding: 0;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <h1>Top 10 Skills Based on Salary</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>skills</th>
+                    <th>avg_salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>scala</td>
+                    <td>202000</td>
+                </tr>
+                <tr>
+                    <td>spark</td>
+                    <td>202000</td>
+                </tr>
+                <tr>
+                    <td>power bi</td>
+                    <td>126400</td>
+                </tr>
+                <tr>
+                    <td>tableau</td>
+                    <td>122000</td>
+                </tr>
+                <tr>
+                    <td>sas</td>
+                    <td>115800</td>
+                </tr>
+                <tr>
+                    <td>looker</td>
+                    <td>108750</td>
+                </tr>
+                <tr>
+                    <td>powerpoint</td>
+                    <td>100550</td>
+                </tr>
+                <tr>
+                    <td>sql</td>
+                    <td>95534</td>
+                </tr>
+                <tr>
+                    <td>python</td>
+                    <td>92520</td>
+                </tr>
+                <tr>
+                    <td>r</td>
+                    <td>91133</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>Big Data and Programming Tools (Spark, Scala)</h3>
+        <p>Command the highest salaries, emphasizing their importance in handling and processing large datasets.</p>
+        <h3>Visualization Tools (Power BI, Tableau, Looker)</h3>
+        <p>High salaries highlight the need for effective data presentation.</p>
+        <h3>Statistical Tools (SAS, R)</h3>
+        <p>Continue to be valuable for advanced data analysis.</p>
+        <h3>Foundational Skills (SQL, Python)</h3>
+        <p>Essential for data querying, management, and analysis, reflected in competitive salaries.</p>
+    </div>
+
+    <div class="section">
+        <h2>5. Most Optimal Skills to Learn</h2>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Most Optimal Skills to Learn for Data Analysts</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    margin: 20px;
+                    padding: 0;
+                }
+                pre {
+                    background-color: #f4f4f4;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    overflow-x: auto;
+                }
+            </style>
+        </head>
+        <body>
+        
+        <h1>Most Optimal Skills to Learn for Data Analysts</h1>
+        
+        <p>Below is a SQL query to find the most optimal skills to learn for Data Analysts:</p>
+        
+        <pre>
+        /*
+        Answer: What are the most optimal skills to learn (aka it’s in high demand and a high-paying skill)?
+        - Identify skills in high demand and associated with high average salaries for Data Analyst roles
+        - Concentrates on remote positions with specified salaries
+        - Why? Targets skills that offer job security (high demand) and financial benefits (high salaries), 
+          offering strategic insights for career development in data analysis
+        */
+        
+        SELECT 
+            skills_dim.skill_name AS skill_name,
+            COUNT(skills_job_dim.job_id) AS demand_count,
+            ROUND(AVG(job_postings_fact.salary_year_avg), 0) AS avg_salary
+        FROM job_postings_fact
+        INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
+        INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+        WHERE
+            job_title_short = 'Data Analyst'
+            AND salary_year_avg IS NOT NULL
+            AND job_work_from_home = True 
+        GROUP BY
+            skills_dim.skill_name
+        HAVING
+            COUNT(skills_job_dim.job_id) > 10
+        ORDER BY
+            avg_salary DESC,
+            demand_count DESC
+        LIMIT 10;
+        </pre>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Skills Data Table</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 20px;
+                padding: 0;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <h1>Skills Data Table</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>skill_id</th>
+                <th>skills</th>
+                <th>demand_count</th>
+                <th>avg_salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>8</td>
+                <td>go</td>
+                <td>27</td>
+                <td>115320</td>
+            </tr>
+            <tr>
+                <td>234</td>
+                <td>confluence</td>
+                <td>11</td>
+                <td>114210</td>
+            </tr>
+            <tr>
+                <td>97</td>
+                <td>hadoop</td>
+                <td>22</td>
+                <td>113193</td>
+            </tr>
+            <tr>
+                <td>80</td>
+                <td>snowflake</td>
+                <td>37</td>
+                <td>112948</td>
+            </tr>
+            <tr>
+                <td>74</td>
+                <td>azure</td>
+                <td>34</td>
+                <td>111225</td>
+            </tr>
+            <tr>
+                <td>77</td>
+                <td>bigquery</td>
+                <td>13</td>
+                <td>109654</td>
+            </tr>
+            <tr>
+                <td>76</td>
+                <td>aws</td>
+                <td>32</td>
+                <td>108317</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>java</td>
+                <td>17</td>
+                <td>106906</td>
+            </tr>
+            <tr>
+                <td>194</td>
+                <td>ssis</td>
+                <td>12</td>
+                <td>106683</td>
+            </tr>
+            <tr>
+                <td>233</td>
+                <td>jira</td>
+                <td>20</td>
+                <td>104918</td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+        <h3>Python Dominance</h3>
+        <p>Python stands out with the highest demand count (236) among the listed skills, reflecting its versatile applicability across various domains from data science to web development.</p>
+        <h3>Visualization Tools</h3>
+        <p>Both Tableau (230) and Looker (49) indicate a strong demand for professionals skilled in data visualization, underscoring the importance of presenting data insights effectively.</p>
+        <h3>Cloud Platforms</h3>
+        <p>Snowflake (37), Azure (34), and AWS (32) show significant demand, highlighting the shift towards cloud-based data solutions and infrastructure.</p>
+        <h3>Specialized Tools</h3>
+        <p>Skills like Hadoop (22) and Spark (13) indicate continued demand for big data processing frameworks, crucial for handling large-scale data analytics.</p>
+        <h3>Database Technologies</h3>
+        <p>Oracle (37) remains relevant for database management, while SQL Server (35) and MySQL (not listed) continue to be essential skills for managing relational databases.</p>
+    </div>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Conclusions and Insights on the Data Analyst Job Market</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 20px;
+                padding: 0;
+            }
+            h2 {
+                margin-top: 20px;
+                color: #333;
+            }
+            p {
+                margin-bottom: 15px;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <h1>Conclusions and Insights on the Data Analyst Job Market</h1>
+    
+    <h2>Programming Versatility</h2>
+    <p>Proficiency in SQL, Python, R, and Scala is highly sought after.</p>
+    
+    <h2>Data Visualization</h2>
+    <p>Tools like Tableau and Power BI are essential for communicating data insights.</p>
+    
+    <h2>Big Data Processing</h2>
+    <p>Spark and Scala are important for handling large datasets.</p>
+    
+    <h2>Skills Based on Salary</h2>
+    <ul>
+        <li>High-Paying Skills: Spark, Scala, Power BI, Tableau, Looker, SAS, and R command high salaries, indicating their value in the market.</li>
+        <li>Essential Skills: SQL and Python are foundational and offer competitive salaries.</li>
+    </ul>
+    
+    <h2>Optimal Skills to Learn</h2>
+    <ul>
+        <li>Python: Highest demand count, reflecting its versatility.</li>
+        <li>Visualization Tools: Strong demand for Tableau and Looker.</li>
+        <li>Cloud Platforms: Snowflake, Azure, and AWS are in significant demand.</li>
+        <li>Big Data Tools: Hadoop and Spark remain crucial for large-scale data analytics.</li>
+        <li>Database Technologies: Oracle, SQL Server, and MySQL are essential for database management.</li>
+    </ul>
+    
+    <h2>Final Thoughts</h2>
+    <p>The data analyst job market in California offers diverse opportunities across industries and seniority levels. Key skills such as SQL, Python, data visualization tools, and big data technologies are crucial for securing high-paying roles. Flexibility in work schedules and the presence of both large and small firms provide multiple career pathways.</p>  
+</html>
